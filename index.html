@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Weather App</title>
+  </head>
+  <body>
+    <header><h1>Weather App</h1></header>
+    <div class="container">
+      <aside>
+        <h2>Search for a city:</h2>
+        <input type="text" />
+        <button class="search"><p>Search</p></button>
+        <hr />
+        <div class="search-history">
+        </div>
+      </aside>
+      <main>
+        <div class="today-weather"></div>
+        <h3 class="forecast-title">5-Day Forecacst</h3>
+        <div class="forecast"></div>
+      </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.4/dayjs.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

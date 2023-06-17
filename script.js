@@ -8,12 +8,14 @@ var forecastTitle = document.querySelector('.forecast-title')
 
 var prevSearches = [];
 
+// Retrieve previously searched cities from localStorage
 var storedCityString = localStorage.getItem("city");
-
 var storedCity = JSON.parse(storedCityString);
 
+// Iterate over stored cities to populate the search history buttons
 storedCity.forEach(function (city) {
   if (!prevSearches.includes(city)) {
+    // Add the city to the array if it doesn't already exist
     prevSearches.push(city)
     var prevSearchBtn = document.createElement("button");
     prevSearchBtn.innerText = city;
@@ -21,6 +23,7 @@ storedCity.forEach(function (city) {
     searchHistory.prepend(prevSearchBtn);
 
     function handleSearchBtnClick(e) {
+      // Set the search input value to the clicked city and trigger weather display
       var cityName = e.target.innerText;
       searchInput.value = cityName;
       displayWeather();
@@ -32,6 +35,7 @@ storedCity.forEach(function (city) {
 function displayWeather() {
   var cityName = searchInput.value;
   forecastTitle.style.display = 'block'
+
   fetch(
     `https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&units=imperial&q=${cityName},US`
   )
@@ -39,6 +43,7 @@ function displayWeather() {
       return res.json();
     })
     .then(function (data) {
+        console.log(data)
       weather.style.display = "block";
       var weatherDiv = `
         <h2>${data.name} ${dayjs.unix(data.dt).format("MM/DD/YYYY")}</h2>`;
@@ -46,11 +51,13 @@ function displayWeather() {
       weather.innerHTML = `
         <h2>${data.name} ${dayjs.unix(data.dt).format("MM/DD/YYYY")}</h2>
         <img src="https://openweathermap.org/img/w/${data.weather[0].icon}.png">
+        <p>${data.weather[0].main}</p>
         <p>Temp: ${data.main.temp}°</p>
         <p>Wind: ${data.wind.speed}mph</p>
         <p>Humidity: ${data.main.humidity}%</p>`;
 
       if (!prevSearches.includes(cityName)) {
+        // Add the city to the array and create a new button if it's not already in the search history
         prevSearches.push(cityName);
 
         // Store updated search history in localStorage
@@ -68,12 +75,6 @@ function displayWeather() {
         }
         prevSearchBtn.addEventListener("click", handleSearchBtnClick);
       }
-
-      //   prevSearches.push(searchInput.value);
-
-      //   var searchString = JSON.stringify(prevSearches);
-
-      //   localStorage.setItem("city", searchString);
 
       fetch(
         `https://api.openweathermap.org/data/2.5/forecast?appid=${apiKey}&units=imperial&lat=${data.coord.lat}&lon=${data.coord.lon}`

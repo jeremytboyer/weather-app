@@ -43,7 +43,6 @@ function displayWeather() {
       return res.json();
     })
     .then(function (data) {
-        console.log(data)
       weather.style.display = "block";
       var weatherDiv = `
         <h2>${data.name} ${dayjs.unix(data.dt).format("MM/DD/YYYY")}</h2>`;

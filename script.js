@@ -4,7 +4,7 @@ var searchInput = document.querySelector("input");
 var weather = document.querySelector(".today-weather");
 var forecast = document.querySelector(".forecast");
 var searchHistory = document.querySelector(".search-history");
-var forecastTitle = document.querySelector('.forecast-title')
+var forecastTitle = document.querySelector(".forecast-title");
 
 var prevSearches = [];
 
@@ -16,7 +16,7 @@ var storedCity = JSON.parse(storedCityString);
 storedCity.forEach(function (city) {
   if (!prevSearches.includes(city)) {
     // Add the city to the array if it doesn't already exist
-    prevSearches.push(city)
+    prevSearches.push(city);
     var prevSearchBtn = document.createElement("button");
     prevSearchBtn.innerText = city;
     prevSearchBtn.classList.add("search-history");
@@ -34,7 +34,7 @@ storedCity.forEach(function (city) {
 
 function displayWeather() {
   var cityName = searchInput.value;
-  forecastTitle.style.display = 'block'
+  forecastTitle.style.display = "block";
 
   fetch(
     `https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&units=imperial&q=${cityName},US`
@@ -93,8 +93,8 @@ function displayWeather() {
                     day.weather[0].icon
                   }.png">
                   <p>${day.weather[0].main}</p>
-                  <p>Temp: ${day.main.temp}</p>
-                  <p>Wind: ${day.wind.speed}°</p>
+                  <p>Temp: ${day.main.temp}°</p>
+                  <p>Wind: ${day.wind.speed}mph</p>
                   <p>Humidity: ${day.main.humidity}%</p>
                 </div>`;
             }

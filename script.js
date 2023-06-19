@@ -13,6 +13,7 @@ var storedCityString = localStorage.getItem("city");
 var storedCity = JSON.parse(storedCityString);
 
 // Iterate over stored cities to populate the search history buttons
+if(storedCity){
 storedCity.forEach(function (city) {
   if (!prevSearches.includes(city)) {
     // Add the city to the array if it doesn't already exist
@@ -30,7 +31,7 @@ storedCity.forEach(function (city) {
     }
     prevSearchBtn.addEventListener("click", handleSearchBtnClick);
   }
-});
+})}
 
 function displayWeather() {
   var cityName = searchInput.value;
